@@ -1,5 +1,3 @@
-import java.util.Arrays;
-import java.util.function.BiPredicate;
 
 /**
  * Given an array of prices where prices[i] is the price of a given
