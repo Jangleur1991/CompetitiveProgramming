@@ -48,6 +48,33 @@ public class MyLinkedList<E> {
         return null;
     }
 
+    public void reverse() {
+        reverseWithLoop();
+        //reverseWithRecursion(this.head);
+    }
+
+    private MyNode<E> reverseWithRecursion(MyNode<E> head) {
+        if (null == head || null == head.next) {
+            this.head = head;
+            return head;
+        }
+        MyNode<E> newHead = reverseWithRecursion(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newHead;
+    }
+
+    private void reverseWithLoop() {
+        MyNode<E> prevNode = null;
+        while (null != head) {
+            MyNode<E> nextNode = head.next;
+            head.next = prevNode;
+            prevNode = head;
+            head = nextNode;
+        }
+        this.head = prevNode;
+    }
+
     public void printElements() {
         if (null != head) {
             MyNode<E> currentNode = head;
