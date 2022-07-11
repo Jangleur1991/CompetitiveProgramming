@@ -1,5 +1,7 @@
 package linkedlist;
 
+
+//TODO: generalise the traversing over the array
 public class MyLinkedList<E> {
     MyNode<E> head;
 
@@ -29,6 +31,21 @@ public class MyLinkedList<E> {
                 currentNode = currentNode.next;
             }
         }
+    }
+
+    //TODO: Refactoring
+    public MyNode<E> getNodeBy(E element) {
+        if (null != head) {
+            MyNode<E> currentNode = head;
+            while(null != currentNode.next) {
+                if (currentNode.element == element) {
+                    return currentNode;
+                }
+                currentNode = currentNode.next;
+            }
+            return null;
+        }
+        return null;
     }
 
     public void printElements() {
