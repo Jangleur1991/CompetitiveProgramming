@@ -74,5 +74,28 @@ and <em>b == c/n</em> where we assume
 This is one way to solve th BuildArrayFromPermutation task
 with an auxillary space complexity of O(1).
 
+#### Two Pointers:
+
+When to use it?
+
+You are trying to solve an array-related problem where the goal is to find two numbers
+that satisfy a certain condition.
+
+What is the general idea?
+
+The idea is to iterate two different parts of an array simultaneously
+to get an answer faster.
+
+How does the implementation look like?
+
+There are at least two ways of implementing the two-pointer technique:
+
+1. One pointer at each end: One pointer starts from the beginning
+and another one fom the end. They proceed towards each other.
+
+    Ex: existsPairWithGivenSumForSortedArray, reverseArray
 
 
+2. Both pointers start at the same position, but with move with different speed:
+ 
+    Ex: MiddleOfLinkedList
