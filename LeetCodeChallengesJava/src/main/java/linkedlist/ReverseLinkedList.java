@@ -4,6 +4,10 @@ import linkedlist.MyLinkedList.MyNode;
 
 //TODO: Solve similiar tasks for practice: ReverseLinked List 2, Palindrome LinkedList, Reverse Nodes in Even Length Groups
 // Maximum Twin Sum of a Linked List
+
+/**
+ * Given the head of a singly linked list, reverse the list, and return the reversed list.
+ */
 public class ReverseLinkedList {
     public static void main(String[] args) {
         MyLinkedList<Integer> myLinkedList = new MyLinkedList<>();
