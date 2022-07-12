@@ -28,6 +28,59 @@ What are they used for in the real world?
 Links:  
 <a href="https://visualgo.net/en/list" alt="Visualisation LinkedList">Visualisation LinkedList</a>
 
+## Space Complexity
+
+Since the term <em>space complexity</em> is often misunderstood, I am trying to understand what it
+actually means.
+
+In many cases, the term <em>space complexity</em> refers to the <em>auxiliary space</em> required by an algorithm.
+
+In fact, however, the <em>space complexity</em> of an algorithm
+is the total space taken by the algorithm with respect
+to the input size. This includes the <em>auxiliary space</em>
+AND the space taken by the input.
+
+Merge sort, Insertion sort and Heap sort 
+all have a <em>space complexity</em> of O(n).
+But Merge sort has an <em>auxiliary space</em>
+of O(n),  while the others have only
+O(1). In many cases, the <em>auxiliary space</em>
+is a much better criterion than <em>space complexity</em>.
+
+
+The creation of an array of length <em>n</em> requires
+O(n) space. But also the recursive call stack space
+counts! This means how many stack calls are on the stack at the same time!
+
+Ex:
+
+```
+private static int add(int n) {      
+    return (n == 0 || n == 1)  
+            ? n  
+             : n + add (n-1);
+}
+
+add(4);
+```
+If we use the debugger we can see, 
+that the method uses up to four
+stack calls at the same time:
+
+![img.png](img.png)
+
+Therefore, the auxiliary space here is
+O(n). 
+
+It is important to mention that the <em>n</em> calls
+exist simultaneously on the call stack!
+
+There are functions/methods that use recursion where
+the input size is <em>n</em>, but there is at most
+one call on the call stack. Therefore the
+auxiliary space is only O(1)!
+
+
 ## Techniques
 
 #### Storage of two values in one variable:
@@ -76,17 +129,17 @@ with an auxillary space complexity of O(1).
 
 #### Two Pointers:
 
-When to use it?
+- When to use it?
 
 You are trying to solve an array-related problem where the goal is to find two numbers
 that satisfy a certain condition.
 
-What is the general idea?
+- What is the general idea?
 
 The idea is to iterate two different parts of an array simultaneously
 to get an answer faster.
 
-How does the implementation look like?
+- How does the implementation look like?
 
 There are at least two ways of implementing the two-pointer technique:
 
