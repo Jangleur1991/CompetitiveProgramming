@@ -28,6 +28,29 @@ What are they used for in the real world?
 Links:  
 <a href="https://visualgo.net/en/list" alt="Visualisation LinkedList">Visualisation LinkedList</a>
 
+### Stack
+
+#### Time complexity:
+Push: O(1)  
+Pop: O(1)  
+Top: O(1)  
+Access (other): O(n)  
+
+A stack follows the rule of LIFO (Last In First Out)
+The last element added in the stack is the first element you remove from it.
+Therefore, a stack is useful when you need the reverse
+Order of given elements. A very popular example is
+<em>Valid Parentheses Problem</em>.
+
+What are they used for in the real world?
+- Call history/log in mobile phones
+- JVM
+- Recursive function calls
+
+Links:  
+- <a href="https://csacademy.com/lesson/stack_introduction/" alt="What is a stack?">What is a stack?</a>
+- <a href="https://csacademy.com/lesson/stack_application_soldiers_row/" alt="Stack Application: Soldiers Row">Stack Application: Soldiers Row</a>
+
 ## Space Complexity
 
 Since the term <em>space complexity</em> is often misunderstood, I am trying to understand what it
