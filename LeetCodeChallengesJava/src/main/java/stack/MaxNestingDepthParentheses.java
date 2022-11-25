@@ -21,7 +21,24 @@ import java.util.Stack;
 public class MaxNestingDepthParentheses {
     public static void main(String[] args) {
         String testString = "(1)+((2))+(((3)))";
-        System.out.println(maxDepth(testString));
+        System.out.println(maxDepthRecursive(testString));
+    }
+
+    private static int maxDepthRecursive(String s) {
+        int currentDepth = 0;
+        int maxDepth = 0;
+        return depthHelper(s, currentDepth, maxDepth);
+    }
+
+    private static int depthHelper(String s, int currentDepth, int maxDepth) {
+        if (s.length() == 0)
+            return maxDepth;
+        if (s.charAt(0) == '(') {
+            currentDepth++;
+        } else if (s.charAt(0) == ')') {
+           currentDepth--;
+        }
+        return depthHelper(s.substring(1), currentDepth, Math.max(maxDepth, currentDepth));
     }
 
     private static int maxDepth(String s) {
