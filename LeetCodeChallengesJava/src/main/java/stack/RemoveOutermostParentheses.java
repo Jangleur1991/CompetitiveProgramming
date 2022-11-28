@@ -12,7 +12,31 @@ import java.util.Stack;
 public class RemoveOutermostParentheses {
     public static void main(String[] args) {
         String s = "(()())(())(()(()))";
-        System.out.println(removeOuterParentheses(s));
+        System.out.println(removeOuterParenthesesRecursive(s));
+    }
+
+
+
+    private static String removeOuterParenthesesRecursive(String s) {
+        int counter = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+        return removeHelper(s, counter, stringBuilder);
+    }
+
+    private static String removeHelper(String s, int counter, StringBuilder stringBuilder) {
+        if (s.length() == 0)
+            return stringBuilder.toString();
+        char character = s.charAt(0);
+        if (character == '(') {
+            if (counter>0)
+                stringBuilder.append(character);
+            counter++;
+        } else if (character == ')') {
+            if (counter > 1)
+                stringBuilder.append(character);
+            counter--;
+        }
+       return removeHelper(s.substring(1), counter, stringBuilder);
     }
 
     private static String removeOuterParentheses(String s) {
