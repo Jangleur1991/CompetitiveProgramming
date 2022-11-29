@@ -11,9 +11,29 @@ import java.util.Arrays;
 public class BuildArrayFromPermutation {
 
     public static void main(String[] args) {
-         int[] nums = {2,0,1};
+        int[] nums = {2,0,1};
+        System.out.println(Arrays.toString(build(nums)));
+    }
 
-        System.out.println(Arrays.toString(buildArray(nums)));
+    private static int[] build(int[] nums) {
+        int n = nums.length;
+        return buildFinalArray(buildTempArray(nums, n - 1), n - 1);
+    }
+
+    private static int[] buildTempArray(int[] nums, int counter) {
+        if (counter == -1)
+            return nums;
+        int n = nums.length;
+        nums[counter] += n * (nums[nums[counter]] % n);
+        return buildTempArray(nums, --counter);
+    }
+
+    private static int[] buildFinalArray(int[] nums, int counter) {
+        if (counter == -1)
+            return nums;
+        int n = nums.length;
+        nums[counter] /= n;
+        return buildFinalArray(nums, --counter);
     }
 
     public static int[] buildArray(int[] nums) {
