@@ -14,7 +14,7 @@ public class ConcatenationOfArray {
 
     public static void main(String[] args) {
         int[] nums = {1, 2, 3};
-        System.out.println(Arrays.toString(getConcatenation(nums)));
+        System.out.println(Arrays.toString(getConcatenationRec(nums)));
     }
 
     public static int[] getConcatenation(int[] nums) {
@@ -26,4 +26,20 @@ public class ConcatenationOfArray {
         }
         return ans;
     }
+
+
+    public static int[] getConcatenationRec(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[2*n];
+        return concateHelper(nums, ans, n-1);
+    }
+
+    private static int[] concateHelper(int[] nums, int[] ans, int counter) {
+        if (counter == -1)
+            return ans;
+        ans[counter] = nums[counter];
+        ans[counter+nums.length] = nums[counter];
+        return concateHelper(nums, ans, --counter);
+    }
+
 }
