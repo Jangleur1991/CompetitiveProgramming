@@ -17,7 +17,17 @@ public class ConvertBinaryToInteger {
         myLinkedList.addElement(0);
         myLinkedList.addElement(1);
         var head = myLinkedList.getHead();
-        System.out.println(getDecimalValue(head));
+        System.out.println(getRecDecimalValue(head));
+    }
+
+    public static int getRecDecimalValue(MyNode<Integer> head) {
+        return calcResult(head, 0);
+    }
+
+    private static int calcResult(MyNode<Integer> currentNode, int result) {
+        if (null == currentNode)
+            return result;
+        return calcResult(currentNode.next, 2 * result + currentNode.element);
     }
 
     public static int getDecimalValue(MyNode<Integer> head) {
