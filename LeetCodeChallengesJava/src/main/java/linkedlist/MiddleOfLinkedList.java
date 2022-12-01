@@ -17,7 +17,19 @@ public class MiddleOfLinkedList {
         myLinkedList.addElement(5);
         myLinkedList.addElement(6);
         MyNode<Integer> head = myLinkedList.getHead();
-        System.out.println(middleNode(head).toString());
+        System.out.println(middleNodeRec(head).toString());
+    }
+
+    private static MyNode<Integer> middleNodeRec(MyNode<Integer> head) {
+        if (null == head || null == head.next)
+            return head;
+        return helper(head, head.next.next);
+    }
+
+    private static MyNode<Integer> helper(MyNode<Integer> slowPointer, MyNode<Integer> fastPointer) {
+        return (null != fastPointer && null != fastPointer.next)
+                ? helper(slowPointer.next, fastPointer.next.next)
+                : slowPointer.next;
     }
 
     public static MyNode<Integer> middleNode(MyNode<Integer> head) {
