@@ -1,6 +1,9 @@
 package linkedlist;
 
 
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 //TODO: generalise the traversing over the array
 public class MyLinkedList<E> {
     MyNode<E> head;
@@ -21,16 +24,51 @@ public class MyLinkedList<E> {
         }
     }
 
+    public void addElementRec(E element) {
+        if (null == head) {
+            head = new MyNode<>(element, null);
+        } else {
+            lastNode(head).next = new MyNode<>(element, null);
+        }
+    }
+
+    private MyNode<E> lastNode(MyNode<E> currentNode) {
+        if (null == currentNode || null == currentNode.next)
+            return currentNode;
+        return lastNode(currentNode.next);
+    }
+
     public void deleteElement(E element) {
         if (null != head) {
             MyNode<E> currentNode = head;
-            while(null != currentNode.next) {
-                if (element == currentNode.next.element) {
-                    currentNode.next = currentNode.next.next;
+            if (element == head.element) {
+                head = head.next;
+            } else {
+                while (null != currentNode && null != currentNode.next) {
+                    if (element == currentNode.next.element) {
+                        currentNode.next = currentNode.next.next;
+                    }
+                    currentNode = currentNode.next;
                 }
-                currentNode = currentNode.next;
             }
         }
+    }
+
+    public void deleteElementRec(E element) {
+        traverseNodes(head, (MyNode<E> node) -> {
+            if (element == head.element) {
+                head = head.next;
+            } else if (null != node.next && element == node.next.element) {
+                node.next = node.next.next;
+            }
+        });
+    }
+
+    private MyNode<E> traverseNodes(MyNode<E> currentNode, Consumer<MyNode<E>> consumer) {
+        if (null == currentNode)
+            return null;
+        consumer.accept(currentNode);
+        return traverseNodes(currentNode.next, consumer);
     }
 
     //TODO: Refactoring
@@ -46,6 +84,18 @@ public class MyLinkedList<E> {
             return null;
         }
         return null;
+    }
+
+    public MyNode<E> getNodeRecBy(E element) {
+        return traverseNodes(head, (MyNode<E> node) -> node.element == element);
+    }
+
+    private MyNode<E> traverseNodes(MyNode<E> node, Predicate<MyNode<E>> predicate) {
+        if (null == node)
+            return null;
+        return predicate.test(node)
+                ? node
+                : traverseNodes(node.next, predicate);
     }
 
     public void reverse() {
