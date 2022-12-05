@@ -15,8 +15,6 @@ public class RemoveOutermostParentheses {
         System.out.println(removeOuterParenthesesRecursive(s));
     }
 
-
-
     private static String removeOuterParenthesesRecursive(String s) {
         int counter = 0;
         StringBuilder stringBuilder = new StringBuilder();

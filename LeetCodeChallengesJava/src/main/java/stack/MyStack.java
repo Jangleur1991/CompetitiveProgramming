@@ -6,11 +6,7 @@ public class MyStack<E> {
     private MyStackNode<E> tail;
 
     public void push(E element) {
-        if (null == tail) {
-            tail = new MyStackNode<>(null, element);
-        } else {
-            tail = new MyStackNode<>(tail, element);
-        }
+        tail = new MyStackNode<>(tail, element);
     }
 
     public E pop() {
@@ -18,6 +14,18 @@ public class MyStack<E> {
         tail = tail.previous;
         return ans;
     }
+
+    public void displayRec() {
+        displayHelper(tail);
+    }
+
+    private void displayHelper(MyStackNode<E> node) {
+        if (null != node) {
+            System.out.println(node.element);
+            displayHelper(node.previous);
+        }
+    }
+
 
     public void display() {
         MyStackNode<E> currentNode = tail;
