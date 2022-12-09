@@ -29,7 +29,15 @@ public class BinaryTree<E> {
 
     //TODO
     public static <E> BinaryTree<E> listToTree(List<E> list) {
-        return null;
+        return listToTreeHelper(list, 0);
+    }
+
+    private static <E> BinaryTree<E> listToTreeHelper(List<E> list, int index) {
+        if (2 * index + 1 >= list.size())
+            return new BinaryTree<>(list.get(index));
+        BinaryTree<E> leftTree = listToTreeHelper(list, 2 * index + 1);
+        BinaryTree<E> rightTree = listToTreeHelper(list, 2 * index + 2);
+        return new BinaryTree<>(list.get(index), leftTree, rightTree);
     }
 
     public List<E> treeToList() {
