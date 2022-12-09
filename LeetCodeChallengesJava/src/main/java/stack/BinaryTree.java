@@ -34,16 +34,12 @@ public class BinaryTree<E> {
 
     public List<E> treeToList() {
         List<E> arrayList = new ArrayList<>();
-        arrayList.add(element);
         treeToArrayHelper(arrayList, this);
         return arrayList;
     }
 
     private void treeToArrayHelper(List<E> arrayList, BinaryTree<E> tree) {
-        if (null != tree.left)
-            arrayList.add(tree.left.element);
-        if (null != tree.right)
-            arrayList.add(tree.right.element);
+        arrayList.add(tree.element);
         if (null != tree.left)
             treeToArrayHelper(arrayList, tree.left);
         if (null != tree.right)
