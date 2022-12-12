@@ -1,6 +1,7 @@
 package stack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BinaryTree<E> {
@@ -9,25 +10,24 @@ public class BinaryTree<E> {
     BinaryTree<E> left;
     BinaryTree<E> right;
 
+    int length;
+
     public BinaryTree(E element) {
         this.element = element;
+        this.length = 1;
     }
 
     public BinaryTree(E element, BinaryTree<E> left, BinaryTree<E> right) {
         this.element = element;
         this.left = left;
         this.right = right;
+        this.length = 1 + left.length + right.length;
     }
 
     public void display() {
-        System.out.println(element);
-        if (null != left)
-            left.display();
-        if (null != right)
-            right.display();
+        System.out.println(treeToList());
     }
 
-    //TODO
     public static <E> BinaryTree<E> listToTree(List<E> list) {
         return listToTreeHelper(list, 0);
     }
@@ -41,16 +41,17 @@ public class BinaryTree<E> {
     }
 
     public List<E> treeToList() {
-        List<E> arrayList = new ArrayList<>();
-        treeToArrayHelper(arrayList, this);
-        return arrayList;
+        List<E> list = new ArrayList<>(Collections.nCopies(this.length, null));
+        treeToListHelper(list, 0, this);
+        return list;
     }
 
-    private void treeToArrayHelper(List<E> arrayList, BinaryTree<E> tree) {
-        arrayList.add(tree.element);
-        if (null != tree.left)
-            treeToArrayHelper(arrayList, tree.left);
-        if (null != tree.right)
-            treeToArrayHelper(arrayList, tree.right);
+    private void treeToListHelper(List<E> list, int i, BinaryTree<E> tree) {
+        list.set(i, tree.element);
+        if (2 * i + 1 < list.size()) {
+            treeToListHelper(list, 2 * i + 1, tree.left);
+            treeToListHelper(list, 2 * i + 2, tree.right);
+        }
     }
+
  }
