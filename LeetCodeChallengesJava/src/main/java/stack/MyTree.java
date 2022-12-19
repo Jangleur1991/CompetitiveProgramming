@@ -21,7 +21,7 @@ public class MyTree<E> {
         this.element = element;
         this.left = left;
         this.right = right;
-        this.length = 1 + left.length + right.length;
+        this.length = 1 + (left != null ? left.length : 1) + (right != null ? right.length : 1);
     }
 
     public void display() {
@@ -41,17 +41,22 @@ public class MyTree<E> {
     }
 
     public List<E> treeToList() {
-        List<E> list = new ArrayList<>(Collections.nCopies(this.length, null));
-        treeToListHelper(list, 0, this);
-        return list;
+        return treeToListHelper(new ArrayList<>(Collections.nCopies(1, null)), 0, this);
     }
 
-    private void treeToListHelper(List<E> list, int i, MyTree<E> myTree) {
-        list.set(i, myTree.element);
-        if (2 * i + 1 < list.size()) {
-            treeToListHelper(list, 2 * i + 1, myTree.left);
-            treeToListHelper(list, 2 * i + 2, myTree.right);
+    //TODO: Rewrite!
+    private List<E> treeToListHelper(List<E> list, int i, MyTree<E> myTree) {
+        if (list.size() <= i) {
+            List<E> tmpList = list;
+            list = new ArrayList<>(Collections.nCopies(i+1, null));
+            Collections.copy(list, tmpList);
+       }
+        list.set(i, (null != myTree ? myTree.element : null));
+        if (null != myTree && (null != myTree.left || null != myTree.right)) {
+            list = treeToListHelper(list, 2 * i + 1, myTree.left);
+            list = treeToListHelper(list, 2 * i + 2, myTree.right);
         }
+        return list;
     }
 
  }

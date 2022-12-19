@@ -1,5 +1,7 @@
 package stack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -17,27 +19,39 @@ import java.util.Stack;
  */
 public class IncreasingOrderSearchTree {
 
-    public MyTree<Integer> increasingBST(MyTree<Integer> root) {
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+        list.add(2);
+        list.add(1);
+        list.add(3);
+
+        MyTree<Integer> integerMyTree = MyTree.listToTree(list);
+        integerMyTree.display();
+        System.out.println();
+//        MyTree<Integer> increasingOrder = increasingBST(integerMyTree);
+//        increasingOrder.display();
+    }
+    public static MyTree<Integer> increasingBST(MyTree<Integer> root) {
         Stack<Integer> elements = new Stack<>();
         mapTreeToStack(root, elements);
         Integer firstElement = elements.pop();
         return createTreeFromStack(elements, new MyTree<>(firstElement));
     }
 
-    private void mapTreeToStack(MyTree<Integer> myTree, Stack<Integer> elements) {
-        if (myTree != null) {
+    private static void mapTreeToStack(MyTree<Integer> myTree, Stack<Integer> elements) {
+        if (myTree != null && myTree.element != null) {
             mapTreeToStack(myTree.left, elements);
             elements.add(myTree.element);
             mapTreeToStack(myTree.right, elements);
         }
     }
 
-    private MyTree<Integer> createTreeFromStack(Stack<Integer> elements, MyTree<Integer> myTree) {
+    private static MyTree<Integer> createTreeFromStack(Stack<Integer> elements, MyTree<Integer> myTree) {
         if (elements.isEmpty())
             return myTree;
         Integer currentElement = elements.pop();
-        MyTree<Integer> right = createTreeFromStack(elements, myTree);
-        return new MyTree<>(currentElement, null, right);
+        MyTree<Integer> currentTree = new MyTree<>(currentElement, null, myTree);
+        return createTreeFromStack(elements, currentTree);
     }
 
 }
