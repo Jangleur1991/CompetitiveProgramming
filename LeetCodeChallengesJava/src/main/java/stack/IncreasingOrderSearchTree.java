@@ -28,8 +28,8 @@ public class IncreasingOrderSearchTree {
         MyTree<Integer> integerMyTree = MyTree.listToTree(list);
         integerMyTree.display();
         System.out.println();
-//        MyTree<Integer> increasingOrder = increasingBST(integerMyTree);
-//        increasingOrder.display();
+        MyTree<Integer> increasingOrder = increasingBST(integerMyTree);
+        increasingOrder.display();
     }
     public static MyTree<Integer> increasingBST(MyTree<Integer> root) {
         Stack<Integer> elements = new Stack<>();

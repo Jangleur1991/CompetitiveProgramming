@@ -41,16 +41,17 @@ public class MyTree<E> {
     }
 
     public List<E> treeToList() {
-        return treeToListHelper(new ArrayList<>(Collections.nCopies(1, null)), 0, this);
+        return treeToListHelper(new ArrayList<>(Collections.nCopies(this.length, null)), 0, this);
+       // return treeToListHelper(new ArrayList<>(Collections.nCopies(1, null)), 0, this);
     }
 
     //TODO: Rewrite!
     private List<E> treeToListHelper(List<E> list, int i, MyTree<E> myTree) {
-        if (list.size() <= i) {
-            List<E> tmpList = list;
-            list = new ArrayList<>(Collections.nCopies(i+1, null));
-            Collections.copy(list, tmpList);
-       }
+//        if (list.size() <= i) {
+//            List<E> tmpList = list;
+//            list = new ArrayList<>(Collections.nCopies(i+1, null));
+//            Collections.copy(list, tmpList);
+//       }
         list.set(i, (null != myTree ? myTree.element : null));
         if (null != myTree && (null != myTree.left || null != myTree.right)) {
             list = treeToListHelper(list, 2 * i + 1, myTree.left);
