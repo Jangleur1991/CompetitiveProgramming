@@ -10,18 +10,18 @@ public class MyTree<E> {
     MyTree<E> left;
     MyTree<E> right;
 
-    int length;
+    int height;
 
     public MyTree(E element) {
         this.element = element;
-        this.length = 1;
+        this.height = 1;
     }
 
     public MyTree(E element, MyTree<E> left, MyTree<E> right) {
         this.element = element;
         this.left = left;
         this.right = right;
-        this.length = 1 + (left != null ? left.length : 1) + (right != null ? right.length : 1);
+        this.height = 1 + Math.max(left != null ? left.height : 0, right != null ? right.height : 0);
     }
 
     public void display() {
@@ -41,17 +41,11 @@ public class MyTree<E> {
     }
 
     public List<E> treeToList() {
-        return treeToListHelper(new ArrayList<>(Collections.nCopies(this.length, null)), 0, this);
-       // return treeToListHelper(new ArrayList<>(Collections.nCopies(1, null)), 0, this);
+        int numberOfElements = (1 << this.height)-1;
+        return treeToListHelper(new ArrayList<>(Collections.nCopies(numberOfElements, null)), 0, this);
     }
 
-    //TODO: Rewrite!
     private List<E> treeToListHelper(List<E> list, int i, MyTree<E> myTree) {
-//        if (list.size() <= i) {
-//            List<E> tmpList = list;
-//            list = new ArrayList<>(Collections.nCopies(i+1, null));
-//            Collections.copy(list, tmpList);
-//       }
         list.set(i, (null != myTree ? myTree.element : null));
         if (null != myTree && (null != myTree.left || null != myTree.right)) {
             list = treeToListHelper(list, 2 * i + 1, myTree.left);
