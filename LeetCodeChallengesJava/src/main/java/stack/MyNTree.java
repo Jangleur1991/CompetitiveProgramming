@@ -37,7 +37,7 @@ public class MyNTree<E> {
     }
 
     private static MyNTree<Integer> addChildern(List<Integer> list, int numberOfElement,
-                                                long nonNullNumber, MyNTree<Integer> result) {
+                                                int nonNullNumber, MyNTree<Integer> result) {
 
         // list
         // aktuelles level
@@ -49,12 +49,10 @@ public class MyNTree<E> {
         if (list.isEmpty())
             return result;
 
-        int nthIndexOfNull = nthIndexOfNull(list, nonNullNumber);
-        List<Integer> level = list.subList(0, nthIndexOfNull);
-        long numberOfNonNullElements = level.stream().filter(Objects::nonNull).count();
-        List<Integer> newList = nthIndexOfNull != list.size()
-                ?  list.subList(nthIndexOfNull + 1, list.size())
-                :   List.of();
+        ListToTreeMapper listToTreeMapper = getMapper(list, nonNullNumber);
+        List<Integer> level = listToTreeMapper.getLevel();
+        List<Integer> newList = listToTreeMapper.getNewList();
+        int numberOfNonNullElements = listToTreeMapper.getNumberOfNonNullElements();
 
         List<MyNTree<Integer>> children = new ArrayList<>();
 
@@ -68,6 +66,24 @@ public class MyNTree<E> {
 
         result.setChildren(children);
         return result;
+    }
+
+
+    private static ListToTreeMapper getMapper(List<Integer> list, int nonNullNumber) {
+        List<Integer> level = new ArrayList<>();
+        List<Integer> newList = new ArrayList<>();
+        int counter = 0;
+        for (int index=0; index < list.size(); index++) {
+            Integer element = list.get(index);
+            if (counter < nonNullNumber) {
+                if (Objects.equals(element, null))
+                    counter++;
+                level.add(element);
+            } else {
+                newList.add(element);
+            }
+        }
+        return new ListToTreeMapper(level, newList, level.size()-counter);
     }
 
 
