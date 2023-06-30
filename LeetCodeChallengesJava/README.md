@@ -175,3 +175,81 @@ and another one fom the end. They proceed towards each other.
 2. Both pointers start at the same position, but with move with different speed:
  
     Ex: MiddleOfLinkedList
+
+## Sort Algorithm
+
+### QuickSort
+
+How to retain sort algorithm ideas?
+
+- <a href="https://medium.com/analytics-vidhya/investigating-quick-sort-partitioning-c70b4240cf4b" alt="What is a stack?">Investigating quick sort partitioning</a>
+
+- Write down your thoughts! Step by step!
+
+
+1. What is the core idea?
+    - <em>Pivot</em>: Choose a <em>pivot</em> (an element of the array).
+    - <em>Partition</em>: Put all the elements less the pivot on one side and all elements 
+      greater on the other (<em>partitioning</em>).
+
+
+2. Write down a simple example!  
+   [2, 7, 6, 1, 4], pivot = 4 => [2, 1, 4, 7, 6]
+
+
+3. Write down "given, wanted":
+   - <em>Given</em>: A random array with elements e1, e2,..., pivot
+   - <em>Wanted</em>: A partition with [e1, e2, ..., pivot, e5, ..] where e1, e2, ... < pivot < e5, ...
+
+4. No idea how to start? Ask questions about the core ideas to find some <em>key steps</em>!
+   These can be the simplest questions at the beginning!
+   Two questions are particularly important:
+   - How to perform/what do we need to find?
+   - What does it mean?  
+   If you get stuck with one of the two questions, ask the other!
+   It is important that the answers do not have to be perfect, i.e. if something is too complex to be answered 
+   in an easily comprehensive way, then an incomplete answer is ok. 
+   This is just a brainstorming session to find some small possible key steps to get started solving the problem.
+   What does the problem actually means? What are we looking for? What are some really basic key steps we need to perform?
+   Variables? Iteration? Functions? What is the minimum required to perform our/parts of our task?
+   <br/><br/>
+   Write down the questions and answers e. g. we need a boundary. Write down 
+   what a boundary is! <br/> <br/>
+   Questions: No ideas? Well write down the most obvious question!</p>
+   - How to perform a partition? We pick a pivot e. g. last element of the array.
+   - What does partitioning mean/do/create? Separate an array in "two arrays"
+     with an element in the middle [e1, e2,...] boundary [e5, ...]. 
+     => A partition creates a boundary! A boundary where all elements to the left of the boundary
+     are smaller than the pivot element and all elements to the right are larger.
+     The boundary is an index in the array that we need to find.
+   - We need to find a boundary. So we need a <em>variable boundary</em>.
+   - How to find a boundary? No idea.
+   - What is a boundary? A boundary is an index in the array! So we need to find an index in the array!
+   - What is the minimum required to find the boundary? What are key steps?
+     We need to compare each element with the pivot. And for this
+     we have to iterate through the array! So two key steps are:
+     - <em>comparison of elements</em>
+     - <em>iteration through array</em>
+
+
+5. While performing step 4 create a separate list with key step ideas!  <br/> <br/>
+   Key steps ideas:
+    - Pick a pivot e. g. last element.
+    - Init a variable <em>boundary</em>.
+    - Iterate through array
+    - Comparison of elements with pivot
+
+
+6.  How would you approach the problem now if you were to do it by hand? Try it out with an example and using 
+    the key steps ideas! Try to go through an example, even if you don't know how at first. Describe the steps and 
+    write them down in words! Meanwhile, write down possible steps from the algorithm in words!
+    <br/> <br/>
+    Example: nums = [2,7,6,1,4], pivot = 4  
+    We need to iterate through the array and we need to init the boundary.
+    We init the boundary with the first element in the array and start iterating.  
+    Possible steps: 
+    - Set boundary to first element
+    - Start iterating
+    <br/> <br/>
+    boundary = 0, i = 0, nums[i] = 2, nums[boundary] = 2
+  
