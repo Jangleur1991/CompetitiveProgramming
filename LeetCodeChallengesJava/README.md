@@ -201,13 +201,19 @@ How to retain sort algorithm ideas?
    - <em>Given</em>: A random array with elements e1, e2,..., pivot
    - <em>Wanted</em>: A partition with [e1, e2, ..., pivot, e5, ..] where e1, e2, ... < pivot < e5, ...
 
-4. No idea how to start? Ask questions about the core ideas to find some <em>key steps</em>!
-   These can be the simplest questions at the beginning!
-   Two questions are particularly important:
-   - How to perform/what do we need to find?
-   - What does it mean?  
+
+4. No idea how to start? Ask questions about the core ideas to find some <em>key steps</em>!  
+   These can be the simplest questions at the beginning!    
+   Some questions are particularly important: <br/> <br/>
+     - How to perform/what do we need to find? What do we want to achieve?
+     - What does it mean?  
+     - What is a simpler case? And how could you solve it?
+     - Assuming the goal/solution is achieved. 
+       How can this be checked and can the steps used be used to find the solution? <br/> <br/>
+ 
+   Also ask questions about answers of your questions!
    If you get stuck with one of the two questions, ask the other!
-   It is important that the answers do not have to be perfect, i.e. if something is too complex to be answered 
+   It is important that the answers do not have to be perfect, i. e. if something is too complex to be answered 
    in an easily comprehensive way, then an incomplete answer is ok. 
    This is just a brainstorming session to find some small possible key steps to get started solving the problem.
    What does the problem actually means? What are we looking for? What are some really basic key steps we need to perform?
@@ -217,17 +223,27 @@ How to retain sort algorithm ideas?
    what a boundary is! <br/> <br/>
    Questions: No ideas? Well write down the most obvious question!</p>
    - How to perform a partition? We pick a pivot e. g. last element of the array.
-   - What does partitioning mean/do/create? Separate an array in "two arrays"
-     with an element in the middle [e1, e2,...] boundary [e5, ...]. 
-     => A partition creates a boundary! A boundary where all elements to the left of the boundary
-     are smaller than the pivot element and all elements to the right are larger.
-     The boundary is an index in the array that we need to find.
+   - What does partitioning mean/do/create?
+   - Separates an array in two parts.
+   - How to perform a such a separation? We need to pick/find a boundary.
+   A partition creates a boundary! A boundary where all elements to the left of the boundary
+  are smaller than the pivot element and all elements to the right are larger.
+  The boundary is an index in the array that we need to find.
    - We need to find a boundary. So we need a <em>variable boundary</em>.
    - How to find a boundary? No idea.
-   - What is a boundary? A boundary is an index in the array! So we need to find an index in the array!
-   - What is the minimum required to find the boundary? What are key steps?
-     We need to compare each element with the pivot. And for this
-     we have to iterate through the array! So two key steps are:
+   - What is a boundary? A boundary is an element in the array.
+   - Here we may now be confused or at a loss. So we ask a new question:
+   - Suppose we already have a partition. How can we check this? What steps do we need to perform?
+   - We have to check whether the constraints are fulfilled!
+   - What are the constraints? e1, e2, ... < boundary < ..., e6
+   - What steps/operations do we have to perform to check this?
+   - We have compare each element with the boundary! 
+   - What are the operations here? Comparison each element with boundary.
+   - How can we perform comparison of each element with the boundary?
+   - Iterate through the array and compare each element with the boundary!
+   - So what is the minimum required to find the boundary? What are key steps?
+   We need to compare each element with the pivot. And for this
+   we have to iterate through the array! So two key steps are:
      - <em>comparison of elements</em>
      - <em>iteration through array</em>
 
@@ -246,10 +262,52 @@ How to retain sort algorithm ideas?
     <br/> <br/>
     Example: nums = [2,7,6,1,4], pivot = 4  
     We need to iterate through the array and we need to init the boundary.
-    We init the boundary with the first element in the array and start iterating.  
+    We init the boundary with the first element in the array and start iterating.  <br/><br/>
     Possible steps: 
     - Set boundary to first element
     - Start iterating
     <br/> <br/>
-    boundary = 0, i = 0, nums[i] = 2, nums[boundary] = 2
+    - boundary = 0, i = 0, nums[i] = 2, nums[boundary] = 2, nums = [2,7,6,1,4]
+    - Is 2 < pivot = 4? Yes => i++, boundary++.  
+    New possible key step:
+      - Check if current element < pivot? Yes? => Continue iteration and 
+        add one to the boundary index. 
+    - boundary = 1, i = 1, nums[i] = 7 = nums[boundary] , nums = [2] [7,6,1,4]
+    -  Is 7 < 4? No! This means 7 needs to be on the right side of the boundary!
+    - Let's say we continue with our steps. This would result in:
+    - [2, 7] [6, 1, 4] :( because 7 < pivot! So we can't proceed with b++.
+    New possible key step: 
+      - Check if current element > pivot? Yes? Freeze the boundary!
+    - What happens when we continue iterating?
+    - boundary = 1, i = 2, nums[i] = 6, nums[boundary] = 7, nums = [2] [7,6,1,4]
+    - Is 6>pivot=4? Yes! Freeze bound and continue iterating!
+    - boundary = 1, i = 3, nums[i] = 1, nums[boundary] = 7, nums = [2] [7,6,1,4]
+    - Is 1 < 4 = pivot? Yes! This means 1 need to be on the left side of the boundary!
+    - What do we need to achieve? We need to get 1 before the boundary!
+    - What is the boundary at the moment? The boundary is 7.
+    - How can we get 4 before the index of 7? 
+    - We could swap 4 and 7 and add one to the boundary index!
+    New possible key step:
+     - Check if current element < pivot? Yes? Then swap(current, boundary) and add one to the boundary index
+    - swap(1, 7), boundary++, i++ => boundary = 2, i = 4, nums[4] = 4, nums[boundary] = 6, nums = [2, 1] [6,7,4]
+    - Is current element == pivot? Yes! The boundary index should now be the correct index for the pivot!
+      So we only have to swap(boundary, pivot)!
+    New possible key step:
+     - Check is current element == pivot? Yes! Swap(boundary, pivot)
+<br/><br/>
+7. Collect the key steps and try to implement them:  
+ <br/>
+Key steps:
+    - Set boundary variable to first index of the array.
+    - Start iterating.
+    - Check if current element < pivot? Yes? Continue iteration and
+      add one to the boundary index.
+    - Check if current element > pivot? Yes? Freeze the boundary.
+    - Check if current element < pivot? Yes? Then swap(current, boundary) and add one to the boundary index.
+    - After iteration: Check is current element == pivot? Yes! swap(boundary, pivot).
+
+<br/> 
+8. Try to find similar problems with the same core ideas. Practice it to internalise the core ideas!
+
+
   
