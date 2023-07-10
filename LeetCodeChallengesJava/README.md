@@ -298,6 +298,7 @@ How to retain sort algorithm ideas?
 7. Collect the key steps and try to implement them:  
  <br/>
 Key steps:
+    - Pick a pivot.
     - Set boundary variable to first index of the array.
     - Start iterating.
     - Check if current element < pivot? Yes? Continue iteration and
@@ -307,7 +308,12 @@ Key steps:
     - After iteration: Check is current element == pivot? Yes! swap(boundary, pivot).
 
 <br/> 
-8. Try to find similar problems with the same core ideas. Practice it to internalise the core ideas!
+8. Try to find similar problems with the same core ideas. Practice to internalise the core ideas!    
+    <ul>
+        <li>Media for list of odd length</li>
+        <li>k-th smallest/biggest element</li>
+        <li>Quickselect</li>
+    </ul> 
 
 
   
