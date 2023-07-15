@@ -310,7 +310,7 @@ Key steps:
 <br/> 
 8. Try to find similar problems with the same core ideas. Practice to internalise the core ideas!    
     <ul>
-        <li>Media for list of odd length</li>
+        <li>median for list of odd length</li>
         <li>k-th smallest/biggest element</li>
         <li>Quickselect</li>
     </ul> 
