@@ -19,7 +19,7 @@ public class QuickSort {
 
     private static void quickSortHelper(int[] nums, int low, int high) {
         if (low < high) {
-            int pivotIndex = partitioning(nums, low, high);
+            int pivotIndex = partitionWithTwoPointers(nums, low, high);
             quickSortHelper(nums, low, pivotIndex-1);
             quickSortHelper(nums, pivotIndex+1, high);
         }
@@ -56,7 +56,38 @@ public class QuickSort {
         return bound;
     }
 
-    private static void swap(int[] nums, int pivotCurrentIndex, int i) {
+    private static int partitionWithTwoPointers(int[] nums, int left, int right) {
+        int pivot = nums[right];
+
+        int i = left;
+        int j = right-1;
+        while (i < j) {
+            //Find the first element left with element >= pivot
+            while (i < j && nums[i] < pivot)
+                i++;
+
+            //Find the first element right with element < pivot
+            while (j > i && nums[j] >= pivot)
+                j--;
+
+//            if (i == j && nums[i] < pivot)
+//                i++;
+
+
+            //Swap greater element on the left with higher element on the right side
+            if (i < j) {
+                swap(nums, i, j);
+                i++;
+                j--;
+            }
+        }
+
+        if (nums[i] != pivot)
+            swap(nums, i, right);
+        return i;
+    }
+
+    public static void swap(int[] nums, int pivotCurrentIndex, int i) {
         int temp = nums[i];
         nums[i] = nums[pivotCurrentIndex];
         nums[pivotCurrentIndex] = temp;
