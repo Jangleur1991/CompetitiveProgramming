@@ -1,4 +1,4 @@
-package techniques;
+package techniques.twoPointer;
 
 import java.util.Arrays;
 
@@ -10,8 +10,10 @@ public class TwoPointers {
     public static void main(String[] args) {
         int[] nums = {1, 2, 3};
         int sum = 5;
+        int[] nums2 = {0, 1, 4, 6, 7, 10};
         System.out.println(existsPairWithGivenSumForSortedArrayRec(nums, sum));
         System.out.println(Arrays.toString(reverseArrayRec(nums)));
+        System.out.println(numberOfDiffForSortedArrayRec(nums2, 3));
     }
 
 
@@ -59,6 +61,42 @@ public class TwoPointers {
         if (sum > tempSum)
             return existsPairHelper(nums, sum, ++lowerCounter, upperCounter);
         return existsPairHelper(nums, sum, lowerCounter, --upperCounter);
+    }
+
+//    private static int numberOfDiffForSortedArray(int[] nums, int diff) {
+//        int ans = 0;
+//        int i = 0;
+//        int j = 1;
+//
+//        while(i <= j && j < nums.length) {
+//            if (nums[j] - nums[i] < diff) {
+//                j++;
+//            } else if (nums[j] - nums[i] > diff) {
+//                i++;
+//            } else {
+//                ans++;
+//                j++;
+//                i++;
+//            }
+//        }
+//        return ans;
+//    }
+
+    private static int numberOfDiffForSortedArrayRec(int[] nums, int diff) {
+        return countPairs(nums, diff, 0, 1, 0);
+    }
+
+    private static int countPairs(int[] nums, int diff, int i, int j, int ans) {
+        if (i > j || j >= nums.length)
+            return ans;
+
+        if (nums[j] - nums[i] < diff) {
+            return countPairs(nums, diff, i, j + 1, ans);
+        } else if (nums[j] - nums[i] > diff) {
+            return countPairs(nums, diff, i + 1, j, ans);
+        } else {
+            return countPairs(nums, diff, i + 1, j + 1, ans + 1);
+        }
     }
 
     // Naive implementation

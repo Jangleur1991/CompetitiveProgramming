@@ -63,11 +63,11 @@ public class QuickSort {
         int j = right-1;
         while (i < j) {
             //Find the first element left with element >= pivot
-            while (i < j && nums[i] < pivot)
+            while (nums[i] < pivot)
                 i++;
 
             //Find the first element right with element < pivot
-            while (j > i && nums[j] >= pivot)
+            while (nums[j] >= pivot)
                 j--;
 
 //            if (i == j && nums[i] < pivot)

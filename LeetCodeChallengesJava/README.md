@@ -212,7 +212,7 @@ How to retain sort algorithm ideas?
        How can this be checked and can the steps used be used to find the solution? <br/> <br/>
  
    Also ask questions about answers of your questions!
-   If you get stuck with one of the two questions, ask the other!
+   If you get stuck with one of the questions, ask the other!
    It is important that the answers do not have to be perfect, i. e. if something is too complex to be answered 
    in an easily comprehensive way, then an incomplete answer is ok. 
    This is just a brainstorming session to find some small possible key steps to get started solving the problem.
