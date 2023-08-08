@@ -23,8 +23,9 @@ public class ReverseWords {
 
 
 
-        // System.out.println(reverseWords2(s1));
-       // System.out.println(reverseWords2(s2));
+         System.out.println(reverseWords2(s1));
+        System.out.println(reverseWords2(s2));
+        System.out.println(reverseWords2(s3));
         System.out.println(reverseWords2(s4));
     }
 
@@ -33,8 +34,7 @@ public class ReverseWords {
         char[] chars = s.toCharArray();
         reverseArray(chars, 0, chars.length-1);
         reverseWords(chars);
-        cleanOutSpaces(chars);
-        return new String(chars);
+        return cleanOutSpaces(chars);
     }
 
     private static void reverseArray(char[] chars, int left, int right) {
@@ -61,7 +61,7 @@ public class ReverseWords {
         }
     }
 
-    private static void cleanOutSpaces(char[] chars) {
+    private static String cleanOutSpaces(char[] chars) {
         int left = 0;
         int right = 0;
 
@@ -75,12 +75,13 @@ public class ReverseWords {
             }
             while (right < chars.length && chars[right] == ' ') {
                 right++;
-                if ( right < chars.length) {
-                    chars[left] = ' ';
-                    left++;
-                }
+            }
+            if ( right < chars.length) {
+                chars[left] = ' ';
+                left++;
             }
         }
+        return new String(chars).substring(0, left);
     }
 
     private static String reverseWords(String s) {
