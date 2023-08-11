@@ -14,6 +14,26 @@ public class TwoPointers {
         System.out.println(existsPairWithGivenSumForSortedArrayRec(nums, sum));
         System.out.println(Arrays.toString(reverseArrayRec(nums)));
         System.out.println(numberOfDiffForSortedArrayRec(nums2, 3));
+        System.out.println(binarySearchWithTwoPointer(nums2, 1));
+    }
+
+    private static int binarySearchWithTwoPointer(int[] nums, int num) {
+        Arrays.sort(nums);
+        int lower = 0;
+        int upper = nums.length-1;
+
+        while (lower <= upper) {
+            int midIndex = (lower+upper)/2;
+            int midElement = nums[midIndex];
+            if (midElement == num)
+                return midIndex;
+            if (midElement < num) {
+                lower = midIndex;
+            } else  {
+                upper = midIndex;
+            }
+        }
+        return -1;
     }
 
 
@@ -63,24 +83,24 @@ public class TwoPointers {
         return existsPairHelper(nums, sum, lowerCounter, --upperCounter);
     }
 
-//    private static int numberOfDiffForSortedArray(int[] nums, int diff) {
-//        int ans = 0;
-//        int i = 0;
-//        int j = 1;
-//
-//        while(i <= j && j < nums.length) {
-//            if (nums[j] - nums[i] < diff) {
-//                j++;
-//            } else if (nums[j] - nums[i] > diff) {
-//                i++;
-//            } else {
-//                ans++;
-//                j++;
-//                i++;
-//            }
-//        }
-//        return ans;
-//    }
+    private static int numberOfDiffForSortedArray(int[] nums, int diff) {
+        int ans = 0;
+        int i = 0;
+        int j = 1;
+
+        while(i <= j && j < nums.length) {
+            if (nums[j] - nums[i] < diff) {
+                j++;
+            } else if (nums[j] - nums[i] > diff) {
+                i++;
+            } else {
+                ans++;
+                j++;
+                i++;
+            }
+        }
+        return ans;
+    }
 
     private static int numberOfDiffForSortedArrayRec(int[] nums, int diff) {
         return countPairs(nums, diff, 0, 1, 0);
@@ -108,6 +128,7 @@ public class TwoPointers {
         }
         return ans;
     }*/
+
 
     // Two Pointer Implementation
     private static int[] reverseArray(int[] nums) {
