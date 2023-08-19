@@ -11,11 +11,11 @@ public class FindUnsortedSubarray {
         int[] nums1 = new int[]{2, 6, 4, 8, 10, 9, 15};
         int[] nums2 = new int[]{1, 2, 3, 4};
         int[] nums3 = new int[]{1};
-        int[] nums4 = new int[]{1,3,2,2,2};
-
-       // System.out.println(findUnsortedSubarray(nums1));
-        //System.out.println(findUnsortedSubarray(nums2));
-       // System.out.println(findUnsortedSubarray(nums3));
+        int[] nums4 = new int[]{1,3,2};
+//
+        System.out.println(findUnsortedSubarray(nums1));
+        System.out.println(findUnsortedSubarray(nums2));
+        System.out.println(findUnsortedSubarray(nums3));
         System.out.println(findUnsortedSubarray(nums4));
     }
 
@@ -33,7 +33,7 @@ public class FindUnsortedSubarray {
     private static int findUnsortedSubarray(int[] nums) {
         int result = nums.length;
         for (int i = 0; i < nums.length; i++) {
-            for (int j = i; j < nums.length; j++) {
+            for (int j = i; j < nums.length+1; j++) {
                 int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE, prev = Integer.MIN_VALUE;
 
                 // Calc the min/max of [i, j-1] (Idea 1)
@@ -46,7 +46,7 @@ public class FindUnsortedSubarray {
                 // are sorted, then we need to check the if condition.
                 // We check this first because it's less effort
                 // than checking if the arrays are sorted!
-                if ((i == 0 || min >= nums[i - 1]) && nums[j] >= max) {
+                if ((i == 0 || min >= nums[i - 1]) && ( j == nums.length || nums[j] >= max)) {
                     //Check if [0,i-1] is sorted
                     int k = 0;
                     while (k < i && prev <= nums[k]) {
