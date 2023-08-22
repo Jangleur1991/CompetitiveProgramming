@@ -1,6 +1,7 @@
 package techniques.twoPointer;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * Given an integer array nums, you need to find one continuous subarray such that if you only sort this subarray in non-decreasing order, then the whole array will be sorted in non-decreasing order.
@@ -14,11 +15,13 @@ public class FindUnsortedSubarray {
         int[] nums2 = new int[]{1, 2, 3, 4};
         int[] nums3 = new int[]{1};
         int[] nums4 = new int[]{1, 3, 2};
+        int[] nums5 = new int[]{1,3,2,2,2};
 //
         System.out.println(findUnsortedSubarray(nums1));
         System.out.println(findUnsortedSubarray(nums2));
         System.out.println(findUnsortedSubarray(nums3));
         System.out.println(findUnsortedSubarray(nums4));
+        System.out.println(findUnsortedSubarrayRec(nums5));
     }
 
     // Brute Force
@@ -117,26 +120,75 @@ public class FindUnsortedSubarray {
     //  4.1) Find longest subarray nums[0,.., right] such that max(nums[0,.., right]) <= nums[right+1, .. n-1]
     //  4.2) Find longest subarray nums[left, ... n-1] such that min(nums[left, ... n-1]) >= nums[0,..,left-1]
     //  4.3) The shortest subarray we want to find is nums[left..right]
+    //  Another way to think about it is to first calculate the right bound. What properties must be true for this one?
+    //  It must satisfy two properties:
+    //   1. The index "right" must be in a wrong position (in the sense of a sorted array) in nums
+    //   i. e. that means there is at least one index "i" with i < right and nums[i] > nums[right].
+    //   In order to check whether such an i exists, one can simply always compare the current element
+    //   with the previously largest element found when running through a loop. If it is larger than max,
+    //   you have found a new maximum. If it is smaller, then the current element is in the "wrong position".
+    //   2. "right" must be the largest index in nums with the property 1.
+    //  The same can be done for finding the left bound. However, you go through the whole process from the other side of the array.
+
+    //    private static int findUnsortedSubarray(int[] nums) {
+//        int n = nums.length;
+//        if (n < 2) return 0;
+//        int left = 1, right = 0;
+//        int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
+//        for (int i = 0; i < n; i++) {
+//            if (max > nums[i]) {
+//                right = i;
+//            } else {
+//                max = nums[i];
+//            }
+//        }
+//
+//        for (int i = n - 1; i >= 0; i--) {
+//            if (min < nums[i]) {
+//                left = i;
+//            } else {
+//                min = nums[i];
+//            }
+//        }
+//        return right - left + 1;
+//    }
     private static int findUnsortedSubarray(int[] nums) {
-        int n = nums.length;
-        if (n < 2) return 0;
-        int left = 1, right = 0;
-        int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
-        for (int i = 0; i < n; i++) {
-            if (max > nums[i]) {
-                right = i;
-            } else {
-                max = nums[i];
-            }
+        Stack<Integer> stack = new Stack<>();
+        int left = nums.length, right = 0;
+        for (int i = 0; i < nums.length; i++) {
+            while (!stack.isEmpty() && nums[stack.peek()] > nums[i])
+                left = Math.min(left, stack.pop());
+            stack.push(i);
+        }
+        stack.clear();
+
+        for (int i = nums.length - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && nums[stack.peek()] < nums[i])
+                right = Math.max(right, stack.pop());
+            stack.push(i);
         }
 
-        for (int i = n - 1; i >= 0; i--) {
-            if (min < nums[i]) {
-                left = i;
-            } else {
-                min = nums[i];
-            }
-        }
-        return right - left + 1;
+        return right - left < 0 ? 0 : right - left + 1;
     }
+
+    private static int findUnsortedSubarrayRec(int[] nums) {
+        if (nums.length <= 1)
+            return 0;
+
+        int right = 0, left = nums.length;
+        return findUnsortedSubarrayHelper(nums, left, right, 0);
+    }
+
+    private static int findUnsortedSubarrayHelper(int[] nums, int left, int right, int index) {
+        if (index == nums.length)
+            return right - left < 0 ? 0 : right - left + 1;
+
+        if (index < nums.length-1 && nums[index] < nums[index+1]) {
+            left = Math.min(left, index+1);
+            right = Math.max(right, index);
+        }
+
+        return findUnsortedSubarrayHelper(nums, left, right, index+1);
+    }
+
 }
