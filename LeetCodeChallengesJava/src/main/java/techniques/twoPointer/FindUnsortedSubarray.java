@@ -17,11 +17,11 @@ public class FindUnsortedSubarray {
         int[] nums4 = new int[]{1, 3, 2};
         int[] nums5 = new int[]{1,3,2,2,2};
 //
-        System.out.println(findUnsortedSubarray(nums1));
-        System.out.println(findUnsortedSubarray(nums2));
-        System.out.println(findUnsortedSubarray(nums3));
-        System.out.println(findUnsortedSubarray(nums4));
-        System.out.println(findUnsortedSubarrayRec(nums5));
+        System.out.println(findUnsortedSubarrayRecursive(nums1));
+        System.out.println(findUnsortedSubarrayRecursive(nums2));
+        System.out.println(findUnsortedSubarrayRecursive(nums3));
+        System.out.println(findUnsortedSubarrayRecursive(nums4));
+        System.out.println(findUnsortedSubarrayRecursive(nums5));
     }
 
     // Brute Force
@@ -130,7 +130,7 @@ public class FindUnsortedSubarray {
     //   2. "right" must be the largest index in nums with the property 1.
     //  The same can be done for finding the left bound. However, you go through the whole process from the other side of the array.
 
-    //    private static int findUnsortedSubarray(int[] nums) {
+//    private static int findUnsortedSubarray(int[] nums) {
 //        int n = nums.length;
 //        if (n < 2) return 0;
 //        int left = 1, right = 0;
@@ -171,24 +171,29 @@ public class FindUnsortedSubarray {
         return right - left < 0 ? 0 : right - left + 1;
     }
 
-    private static int findUnsortedSubarrayRec(int[] nums) {
-        if (nums.length <= 1)
-            return 0;
-
-        int right = 0, left = nums.length;
-        return findUnsortedSubarrayHelper(nums, left, right, 0);
+    private static int findUnsortedSubarrayRecursive(int[] nums) {
+        int n = nums.length;
+        if (n < 2) return 0;
+        int left = 1, right = 0;
+        right = rightBound(nums, right, Integer.MIN_VALUE, 0);
+        left = leftBound(nums, left, Integer.MAX_VALUE, n - 1);
+        return right - left + 1;
     }
 
-    private static int findUnsortedSubarrayHelper(int[] nums, int left, int right, int index) {
+    private static int leftBound(int[] nums, int left, int minValue, int index) {
+        if (index < 0)
+            return left;
+        return (minValue < nums[index])
+                ? leftBound(nums, index, minValue, index - 1)
+                : leftBound(nums, left, nums[index], index - 1);
+    }
+
+    private static int rightBound(int[] nums, int right, int maxValue, int index) {
         if (index == nums.length)
-            return right - left < 0 ? 0 : right - left + 1;
+            return right;
 
-        if (index < nums.length-1 && nums[index] < nums[index+1]) {
-            left = Math.min(left, index+1);
-            right = Math.max(right, index);
-        }
-
-        return findUnsortedSubarrayHelper(nums, left, right, index+1);
+        return (maxValue > nums[index])
+                ? rightBound(nums, index, maxValue, index + 1)
+                : rightBound(nums, right, nums[index], index + 1);
     }
-
 }
