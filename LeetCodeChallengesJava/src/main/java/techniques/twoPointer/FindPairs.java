@@ -1,10 +1,7 @@
 package techniques.twoPointer;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -32,6 +29,7 @@ public class FindPairs {
         System.out.println(findPairs(nums3, 0));
         System.out.println(findPairs(nums4, 1)); //5
         System.out.println(findPairs(nums5, 0)); //1
+
     }
 
 //    private static int findPairs(int[] nums, int k) {
@@ -83,21 +81,56 @@ public class FindPairs {
         }
     }
 
+//    private static int findPairs(int[] nums, int k) {
+//        if (nums.length < 2) return 0;
+//        HashMap<Integer, Integer> helperMap = new HashMap<>();
+//
+//        int result = 0;
+//        for (int num: nums) {
+//            helperMap.put(num, helperMap.getOrDefault(num, 0) + 1);
+//        }
+//
+//        var entries = helperMap.entrySet();
+//
+//        for (var entry: entries) {
+//            if ((k == 0 && entry.getValue() >= 2) || (k > 0 && helperMap.containsKey(entry.getKey()+k)))
+//                result++;
+//        }
+//        return result;
+//    }
+
     private static int findPairs(int[] nums, int k) {
         if (nums.length < 2) return 0;
-        HashMap<Integer, Integer> helperMap = new HashMap<>();
+        Arrays.sort(nums);
+        int n = nums.length;
+        Set<Integer> pairs = new HashSet<>();
 
-        int result = 0;
-        for (int num: nums) {
-            helperMap.put(num, helperMap.getOrDefault(num, 0) + 1);
+        for (int i = 0; i < n-1; i++) {
+            if (binarySearchHelper(nums, nums[i]+k, i+1, n-1) > 0)
+                pairs.add(nums[i]);
         }
+        return pairs.size();
+    }
 
-        var entries = helperMap.entrySet();
 
-        for (var entry: entries) {
-            if ((k == 0 && entry.getValue() >= 2) || (k > 0 && helperMap.containsKey(entry.getKey()+k)))
-                result++;
-        }
-        return result;
+
+    private static int binarySearch(int[] nums, int i) {
+        return binarySearchHelper(nums, i, 0, nums.length-1);
+    }
+
+    private static int binarySearchHelper(int[] nums, int num, int left, int right) {
+        if (left>right)
+            return -1;
+
+        int midIndex = (left+right)/2;
+        int midElement = nums[midIndex];
+
+        if (num == midElement)
+            return midIndex;
+
+        if (midElement < num)
+            return binarySearchHelper(nums, num, midIndex+1, right);
+        else
+            return binarySearchHelper(nums, num, left, midIndex-1);
     }
 }
