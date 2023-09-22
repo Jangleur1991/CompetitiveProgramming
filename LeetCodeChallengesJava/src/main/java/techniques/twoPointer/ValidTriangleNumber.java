@@ -14,8 +14,8 @@ public class ValidTriangleNumber {
         int[] nums2 = new int[]{4,2,3,4};
         int[] nums3 = new int[]{7,0,0,0};
 
-//        System.out.println(triangleNumber(nums1)); //3
-//        System.out.println(triangleNumber(nums2)); //4
+        System.out.println(triangleNumber(nums1)); //3
+        System.out.println(triangleNumber(nums2)); //4
         System.out.println(triangleNumber(nums3)); //0
     }
 
@@ -25,7 +25,9 @@ public class ValidTriangleNumber {
         for (int i = 0; i < nums.length - 2; i++) {
             int thirdSideIndex = i+2;
             for (int j = i+1; j < nums.length-1; j++) {
-                thirdSideIndex = binarySearch(nums, thirdSideIndex, nums.length-1, nums[i] + nums[j]);
+                while (thirdSideIndex < nums.length && nums[i] + nums[j] > nums[thirdSideIndex])
+                    thirdSideIndex++;
+//                thirdSideIndex = binarySearch(nums, thirdSideIndex, nums.length-1, nums[i] + nums[j]);
                 result += Math.max(thirdSideIndex - j -1, 0);
             }
         }
