@@ -47,10 +47,30 @@ public class IntersectionTwoArrays {
 //        return result.stream().mapToInt(Integer::intValue).toArray();
 //    }
 
+//    private static int[] intersection(int[] nums1, int[] nums2) {
+//        Set<Integer> nums1Set = Arrays.stream(nums1).boxed().collect(Collectors.toSet());
+//        return Arrays.stream(nums2).filter(nums1Set::contains)
+//                .distinct()
+//                .toArray();
+//    }
+
     private static int[] intersection(int[] nums1, int[] nums2) {
-        Set<Integer> nums1Set = Arrays.stream(nums1).boxed().collect(Collectors.toSet());
-        return Arrays.stream(nums2).filter(nums1Set::contains)
-                .distinct()
-                .toArray();
+        Set<Integer> nums1Set = new HashSet<>();
+        for (int num: nums1) {
+            nums1Set.add(num);
+        }
+        List<Integer> resultList = new ArrayList<>();
+        for (int num: nums2) {
+            if (nums1Set.remove(num))
+                resultList.add(num);
+        }
+
+        int[] result = new int[resultList.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = resultList.get(i);
+        }
+        return result;
     }
+
+
 }
