@@ -8,6 +8,9 @@ import java.util.Queue;
  * 1's in the array if you can flip at most k 0's
  *
  * https://leetcode.com/problems/max-consecutive-ones-iii/solutions/1117602/interview-answer-java/
+ *
+ * Idea is always two pointer in question like that where you need to find longest subarray with some
+ * modification power to you in array.
  */
 public class MaxConsecutiveOnes3 {
     public static void main(String[] args) {

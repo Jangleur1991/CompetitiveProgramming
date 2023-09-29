@@ -10,8 +10,8 @@ package techniques.twoPointer;
  */
 public class MaxConsecutiveOnes {
     public static void main(String[] args) {
-        int[] nums1 = new int[]{1,1,0,1,1,1};
-        int[] nums2 = new int[]{1,0,1,1,0,1};
+        int[] nums1 = new int[]{1, 1, 0, 1, 1, 1};
+        int[] nums2 = new int[]{1, 0, 1, 1, 0, 1};
 
         System.out.println(findMaxConsecutiveOnes(nums1)); //3
         System.out.println(findMaxConsecutiveOnes(nums2)); //2
@@ -23,11 +23,24 @@ public class MaxConsecutiveOnes {
         int result = 0, left = 0, right = 0;
         while (right < nums.length) {
             if (nums[right] == 0)
-                left = right+1;
+                left = right + 1;
             else
-                result = Math.max(result, right-left+1);
+                result = Math.max(result, right - left + 1);
             right++;
         }
         return result;
     }
+
+//    private static int findMaxConsecutiveOnes(int[] nums) {
+//        int result = 0, currentConsecutiveOnes  = 0;
+//        for (int num: nums) {
+//            if (num == 1) {
+//                currentConsecutiveOnes++;
+//                result = Math.max(currentConsecutiveOnes, result);
+//            } else {
+//                currentConsecutiveOnes = 0;
+//            }
+//        }
+//        return result;
+//    }
 }
