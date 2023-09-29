@@ -2,6 +2,13 @@ package techniques.twoPointer;
 
 /**
  * Given a binary array nums, return the maximum number of consecutive 1's in the array if you can flip at most one 0.
+ * https://sunjetliu.medium.com/algorithm-practice-max-consecutive-ones-ii-792887fe1b4e
+ *
+ * Approach: Similar to MaxConescutiveOnes but the valid/invalid states are different:
+ *
+ *  - Valid: one or fewer 0’s in our current sequence
+ *  - Invalid: two 0’s in our current sequence
+ *
  */
 public class MaxConsecutiveOnesII {
     public static void main(String[] args) {
