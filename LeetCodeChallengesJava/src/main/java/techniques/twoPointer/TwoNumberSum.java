@@ -8,6 +8,11 @@ import java.util.*;
  * If such pair exists, return the pair in any order; otherwise return an empty array. We cannot add a number to itself
  * to get the target sum.
  *
+ * In general, sum problems can be categorized into two categories: 1) there is any array and you add some numbers to
+ * get to (or close to) a target, or 2) you need to return indices of numbers that sum up to a (or close to) a target value.
+ * Note that when the problem is looking for a indices, sorting the array is probably NOT a good idea.
+ *
+ * https://leetcode.com/problems/4sum/solutions/737096/Sum-MegaPost-Python3-Solution-with-a-detailed-explanation/
  */
 public class TwoNumberSum {
     public static void main(String[] args) {
@@ -71,5 +76,27 @@ public class TwoNumberSum {
             }
         }
         return new int[]{};
+    }
+
+    private static List<List<Integer>> twoSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        int left = 0;
+        int right = nums.length-1;
+
+
+        while (left < right) {
+            int sum = nums[left]+nums[right];
+            if (sum < target || (left > 0 && nums[left] == nums[left-1])) {
+                left++;
+            } else if (sum > target || (right < nums.length-1 && nums[right] == nums[right+1])) {
+                right--;
+            } else {
+                result.add(List.of(nums[left], nums[right]));
+                left--;
+                right++;
+            }
+        }
+        return result;
     }
 }
