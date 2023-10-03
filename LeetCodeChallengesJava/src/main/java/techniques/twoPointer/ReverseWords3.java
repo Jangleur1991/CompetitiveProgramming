@@ -14,8 +14,8 @@ public class ReverseWords3 {
         String s1 = "Let's take LeetCode contest";
         String s2 = "God Ding";
 
-        System.out.println(reverseWords3(s1));
-        System.out.println(reverseWords3(s2));
+        System.out.println(reverseWords(s1));
+        System.out.println(reverseWords(s2));
     }
 
     private static String reverseWords(String s) {
@@ -25,7 +25,7 @@ public class ReverseWords3 {
             if (i == chars.length || chars[i] == ' ') {
                 int left = lastSpaceIndex+1;
                 int right = i-1;
-                chars = reverseWord(chars, left, right);
+                reverseWord(chars, left, right);
                 lastSpaceIndex = i;
             }
         }
