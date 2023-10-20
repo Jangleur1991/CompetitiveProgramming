@@ -1,5 +1,8 @@
 package techniques.twoPointer.twoSumProblem;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Given an integer array arr, and an integer target, return the number of tuples i, j, k such that i < j < k and arr[i] + arr[j] + arr[k] == target.
  *
@@ -18,6 +21,20 @@ public class ThreeSumWithMultiplicity {
     }
 
     private static int threeSumMulti(int[] arr, int target) {
-        return 0;
+        int result = 0;
+
+        Map<Integer, Integer> map = new HashMap<>();
+        int mod = 1000000007;
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i+1; j < arr.length; j++) {
+                if (map.containsKey(target - arr[i] - arr[j])) {
+                    result = (result + map.get(target - arr[i] - arr[j])) % mod;
+                }
+            }
+            map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
+        }
+
+        return result;
     }
 }
