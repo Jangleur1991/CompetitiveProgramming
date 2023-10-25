@@ -1,4 +1,4 @@
-package techniques.twoPointer.twoSumProblem;
+package techniques.twoPointer.NextPermutation;
 
 import java.util.Arrays;
 
