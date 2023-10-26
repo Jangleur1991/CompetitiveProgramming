@@ -16,16 +16,20 @@ public class NextGreaterElement {
         int n1 = 12;
         int n2 = 21;
         int n3 = 230241;
+        int n4 = 2147483486;
+        int n5 = 12222333;
 
-        System.out.println(nextGreaterElement(n1));
-        System.out.println(nextGreaterElement(n2));
-        System.out.println(nextGreaterElement(n3)); //230412
+       System.out.println(nextGreaterElement(n1));
+       System.out.println(nextGreaterElement(n2));
+       System.out.println(nextGreaterElement(n3)); //230412
+       System.out.println(nextGreaterElement(n4)); // -1
+       System.out.println(nextGreaterElement(n5)); // 12223233
     }
 
     private static int nextGreaterElement(int n) {
         char[] numbers = String.valueOf(n).toCharArray();
 
-        //Find first number from right where numbers[i+1] < numbers[i]
+        //Find first number from right where numbers[i-1] < numbers[i]
         int indexOfDigitToSwap = skipUntilDigitLessThanNextDigit(numbers);
 
         if (indexOfDigitToSwap == -1)
@@ -38,10 +42,14 @@ public class NextGreaterElement {
         swap(numbers, indexOfDigitToSwap, smallestDigitOnRightSide);
 
         //Reverse elements right of the index to get the smallest greater number
-        reverseRightSide(numbers, indexOfDigitToSwap);
+        reverseRightSide(numbers, indexOfDigitToSwap + 1);
 
-        return Integer.parseInt(new String(numbers));
-
+        try {
+            return Integer.parseInt(new String(numbers));
+        } catch ( NumberFormatException e)
+        {
+            return -1;
+        }
     }
 
     private static int skipUntilDigitLessThanNextDigit(char[] numbers) {
@@ -53,12 +61,12 @@ public class NextGreaterElement {
         return -1;
     }
     private static int findSmallestIndexOnRightSide(int indexOfDigitToSwap, char[] numbers) {
-        int smallestDigit = indexOfDigitToSwap;
+        int indexOfSmallestDigit = indexOfDigitToSwap+1;
         for (int i = indexOfDigitToSwap+1; i < numbers.length; i++) {
-            if (numbers[i] > indexOfDigitToSwap && numbers[i] < smallestDigit)
-                smallestDigit = numbers[i];
+            if (numbers[i] > numbers[indexOfDigitToSwap] && (numbers[i] <= numbers[indexOfSmallestDigit]) )
+                indexOfSmallestDigit = i;
         }
-        return smallestDigit;
+        return indexOfSmallestDigit;
     }
 
     private static void swap(char[] numbers, int i, int j) {
