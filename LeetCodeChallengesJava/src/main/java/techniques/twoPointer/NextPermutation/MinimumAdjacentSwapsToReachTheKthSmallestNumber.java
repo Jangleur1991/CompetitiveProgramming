@@ -30,13 +30,77 @@ public class MinimumAdjacentSwapsToReachTheKthSmallestNumber {
         int k2 = 4;
         int k3 = 1;
 
-        System.out.println(getMinSwaps(num1, k1));
-        System.out.println(getMinSwaps(num2, k2));
-        System.out.println(getMinSwaps(num3, k3));
+        System.out.println(getMinSwaps(num1, k1)); //2
+        System.out.println(getMinSwaps(num2, k2)); //4
+        System.out.println(getMinSwaps(num3, k3)); //1
 
     }
 
     private static int getMinSwaps(String num, int k) {
-        return 0;
+        char[] digits = num.toCharArray();
+        //Find k-th permutation
+        char[] kthPermutation = kthPermutation(num.toCharArray(), k);
+        //Find minimal adjacent swaps between digits and kthPermutation
+        return minimalAdjacentSwaps(digits, kthPermutation);
     }
+
+    private static char[] kthPermutation(char[] digits, int k) {
+        while (k>0) {
+            digits = nextPermutation(digits, k);
+            k--;
+        }
+        return digits;
+    }
+
+    private static int minimalAdjacentSwaps(char[] digits, char[] kthPermutation) {
+        int result = 0;
+        for (int i = 0; i < digits.length; i++) {
+            if (digits[i] != kthPermutation[i]) {
+                int j = i+1;
+                while (digits[i] != kthPermutation[j])
+                    j++; //Find index to swap
+                while (j != i) {
+                    char temp = kthPermutation[j];
+                    kthPermutation[j] = kthPermutation[j-1];
+                    kthPermutation[j-1] = temp;
+                    // Swap until the characters
+                    // are at same index
+                    j--;
+                    result++;
+                }
+            }
+        }
+        return result;
+    }
+
+    private static char[] nextPermutation(char[] nums, int k) {
+        int i = nums.length - 2;
+        while (i >= 0 && nums[i] >= nums[i+1])
+            i--;
+        if (i >= 0) {
+            int j = nums.length-1;
+            while (nums[j] <= nums[i])
+                j--;
+            swap(nums, i, j);
+        }
+        reverse(nums, i+1);
+        return nums;
+    }
+
+
+    private static void swap(char[] nums, int i, int j) {
+        char temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    private static void reverse(char[] nums, int start) {
+        int i = start, j = nums.length - 1;
+        while (i < j) {
+            swap(nums, i, j);
+            i++;
+            j--;
+        }
+    }
+
 }
