@@ -99,8 +99,8 @@ public class MyLinkedList<E> {
     }
 
     public void reverse() {
-        reverseWithLoop();
-        //reverseWithRecursion(this.head);
+        //reverseWithLoop();
+        reverseWithRecursion(this.head);
     }
 
     private MyNode<E> reverseWithRecursion(MyNode<E> head) {
@@ -141,6 +141,14 @@ public class MyLinkedList<E> {
 
         public MyNode(E element, MyNode<E> next) {
             this.element = element;
+            this.next = next;
+        }
+
+        public MyNode<E> getNext() {
+            return next;
+        }
+
+        public void setNext(MyNode<E> next) {
             this.next = next;
         }
 

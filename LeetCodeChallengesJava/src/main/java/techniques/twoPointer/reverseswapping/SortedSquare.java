@@ -1,4 +1,4 @@
-package techniques.twoPointer;
+package techniques.twoPointer.reverseswapping;
 
 import java.util.Arrays;
 

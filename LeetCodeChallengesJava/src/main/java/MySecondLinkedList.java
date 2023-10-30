@@ -1,61 +1,53 @@
-import linkedlist.MyLinkedList;
-
 public class MySecondLinkedList<E> {
 
     public static void main(String[] args) {
-        MySecondLinkedList<Object> linkedList = new MySecondLinkedList<>();
-        linkedList.add(1);
-        linkedList.add(2);
-        linkedList.add(3);
-        linkedList.display();
-        linkedList.reverse();
-        System.out.println();
-        linkedList.display();
+        MySecondLinkedList<Integer> list = new MySecondLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.print();
+       // list.reverse();
+        list.print();
+        list.removeNthFromEnd(list.getHead(), 2);
     }
 
-    private MyNode<E> head;
+
+    MyNode<E> head;
+
+    public MyNode<E> getHead()
+    {
+        return this.head;
+    }
 
     public void add(E element) {
         if (null == head) {
-            head = new MyNode<>(element, null);
+            this.head = new MyNode<>(element, null);
         } else {
-            MyNode<E> currentNode = head;
-            while (null != currentNode.next) {
-                currentNode = currentNode.next;
-            }
-            currentNode.next = new MyNode<>(element, null);
+            lastNode(head).next = new MyNode<>(element, null);
         }
     }
 
-    public void display() {
+    private MyNode lastNode(MyNode<E> currentNode) {
+        if (null == currentNode || null == currentNode.next)
+            return currentNode;
+        return lastNode(currentNode.next);
+    }
+
+    public void print() {
         if (null != head) {
             MyNode<E> currentNode = head;
-            while (null != currentNode) {
-                System.out.println(currentNode.element);
-                currentNode = currentNode.next;
-            }
+            printLoop(head);
+        }
+    }
+
+    private void printLoop(MyNode<E> currentNode) {
+        if (null != currentNode) {
+            System.out.println(currentNode.element);
+            printLoop(currentNode.next);
         }
     }
 
     public void reverse() {
-        //reverse(head);
-        reverseWithLoop();
-    }
-
-
-    private MyNode<E> reverse(MyNode<E> node) {
-        if (null == node.next) {
-            this.head=node;
-            return node;
-        }
-        MyNode<E> nextNode = reverse(node.next);
-        nextNode.next = node;
-        node.next = null;
-        return node;
-    }
-
-
-    private void reverseWithLoop() {
         MyNode<E> prevNode = null;
         while (null != head) {
             MyNode<E> nextNode = head.next;
@@ -63,7 +55,31 @@ public class MySecondLinkedList<E> {
             prevNode = head;
             head = nextNode;
         }
-        head = prevNode;
+        this.head = prevNode;
+    }
+
+    public MyNode<E> removeNthFromEnd(MyNode<E> head, int n) {
+        MyNode<E> firstPointer = head;
+        MyNode<E> secondPointer = head;
+
+        int counter = 0;
+        while(null != secondPointer && counter < n) {
+            secondPointer = secondPointer.next;
+            counter++;
+        }
+
+        if (null == secondPointer) {
+            head = head.next;
+            return head;
+        }
+
+        while(null != secondPointer.next) {
+            firstPointer = firstPointer.next;
+            secondPointer = secondPointer.next;
+        }
+
+        firstPointer.next = firstPointer.next.next;
+        return head;
     }
 
     private static class MyNode<E> {
@@ -73,6 +89,11 @@ public class MySecondLinkedList<E> {
         public MyNode(E element, MyNode<E> next) {
             this.element = element;
             this.next = next;
+        }
+
+        @Override
+        public String toString() {
+            return "Element: " + element;
         }
     }
 }

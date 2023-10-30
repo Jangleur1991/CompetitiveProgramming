@@ -1,4 +1,4 @@
-package techniques.twoPointer;
+package techniques.twoPointer.reverseswapping;
 
 /**
  * Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the
