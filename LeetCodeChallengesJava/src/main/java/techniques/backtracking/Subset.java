@@ -21,6 +21,7 @@ public class Subset
         int[] nums2 = new int[]{0};
 
         subsets( nums );
+        System.out.println(subsets(nums));
         System.out.println(subsets( nums1 )); //[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
         System.out.println(subsets( nums2 )); //[[],[0]]
 
