@@ -14,7 +14,7 @@ public class BigOExamples
 
         int[] ints = generateRandomArray( 3 );
         System.out.println(Arrays.toString( ints ));
-        selectionSort( arr );
+        insertionSort( arr );
         System.out.println(Arrays.toString( arr ));
     }
 
@@ -43,7 +43,7 @@ public class BigOExamples
         }
     }
 
-    //Example O(n2) which is twice as fast as bubblesort
+    //Example O(n2) which is twice as fast as bubblesort in the worst case!
     private static void selectionSort( int[] arr )
     {
         for ( int i = 0; i < arr.length; i++ )
@@ -60,6 +60,22 @@ public class BigOExamples
                 arr[i] = arr[lowestNumberIndex];
                 arr[lowestNumberIndex] = temp;
             }
+        }
+    }
+
+    //O(N2) in worst case but O(N2/2) in average case! Best it's even O(N)!
+    private static void insertionSort( int[] arr )
+    {
+        for ( int i = 0; i < arr.length; i++ )
+        {
+            int position = i; //Index of element which will be shifted to the left
+            int temp = arr[i]; // temp gap variable (remove step). That's the element which will great the gap.
+            while ( position > 0 && arr[position - 1] > temp ) // comparison step
+            {
+                arr[position] = arr[position-1]; // shift step
+                position--;
+            }
+            arr[position] = temp; //insertion step
         }
     }
 
