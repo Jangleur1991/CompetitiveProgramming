@@ -8,8 +8,7 @@ import java.util.Map;
  * https://leetcode.com/problems/two-sum/description/
  * https://leetcode.com/problems/two-sum/editorial/
  *
- * @author Pulse Innovations Ltd
- */
+ * */
 public class LeetCode1
 {
     public static void main( String[] args )
