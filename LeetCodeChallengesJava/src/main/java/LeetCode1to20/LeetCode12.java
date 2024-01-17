@@ -36,4 +36,15 @@ public class LeetCode12
         }
         return sb.toString();
     }
+
+    // private static String intToRoman( int num )
+    // {
+    //     String[] units = new String[]{"", "I", "II", "IV", };
+    //     String[] tens = ....
+    //     String[] hundreds = ...
+    //     String[] thousands = ...
+    //
+    //     return thousands[num / 1000] + hundreds[(num%1000)/100] + tens[(num%100)/10] + units[(num%10)];
+    //
+    // }
 }
