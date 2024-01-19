@@ -376,5 +376,26 @@ def letterCombinations(self, digits: str) -> List[str]:
         return output
 ```
 
+## How to tackle backtracking?
+
+1. Hammer the basic pseudocode into your soul:
+2. Draw a tree
+
+```Pseudo
+def backtrack(candidate):
+if find_solution(candidate):
+    output(candidate)
+    return
+# iterate all possible candidates.
+for next_candidate in list_of_candidates:
+  if is_valid(next_candidate): 
+  # try this partial candidate solution 
+  place(next_candidate)
+  #given the candidate, explore futher
+  backtrack(next_candidate)
+  # backtrack
+  remove(next_candidate)
+```
+
 
   
