@@ -315,5 +315,66 @@ Key steps:
         <li>Quickselect</li>
     </ul> 
 
+## Interesting problems to learn from:
+
+Problem: [Letter combinations of a phone number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/)  
+Solution using backtracking: [Backtracking Solution](https://leetcode.com/problems/letter-combinations-of-a-phone-number/solutions/3855474/100-backtracking-iterative-video-letter-combinations-of-a-phone-number/)
+
+### Backtracking approach:
+1. _Base case:_ Check if digit String is empty. Return empty list in that case.
+2. _Initiliaze a Map or an Array:_ Map from each digit to corresponding String or use an array instead (this is 
+   possible since we are mapping positive ordered integer numbers 2,3,..,9 to Strings. So we can use an array).
+   Example with using an array: ```Java String[] phone_map = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};```
+   and ```Java String letters = phone_map[next_digits.charAt(0) - '2'];```
+3. _Recursive Backtracking:_
+- _Define Recursive Function:_  
+  Create a recursive Function _backtrack_ that will used to explore all possible 
+  combinations. It takes at least two parameters:
+  - _combination_: Holds current combination of letters
+  - _nextDigits_: holds remaining digits to be explored
+  In Java we also need the Result and the Map:
+  - _Map/Array_: See step 2
+  - _Result list_
+- _Termination Condition_:  
+   If _nextDigits_ is empty, it means that all digits have been processed, so append the current _combination_ to the 
+   result.
+- _Exploration_:  
+   If there are more digits to explore, take the first from nextDigits and iterate over its corresponding letters in 
+   the mapping. For each letter, concantenate it to the current combination and recursively call the _backtrack_ function
+   with the _new_ _combination_ and the _remaining_ _digits_.
+- _Example_: "23" draw a tree! "", "23" -> "a", "b", "c", "3" -> "ad", "ae",..., ""
+
+4. Result: Return collected Combinations!
+5. TimeL O(4^n) worst cas we have 4 digits so 4 recursive calls
+6. Space: O(n) recursive call stacks for String of length n.
+7. Code in python:
+```Python
+def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+
+        phone_map = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+
+        def backtrack(combination, next_digits):
+            if len(next_digits) == 0:
+                output.append(combination)
+            else:
+                for letter in phone_map[next_digits[0]]:
+                    backtrack(combination + letter, next_digits[1:])
+
+        output = []
+        backtrack("", digits)
+        return output
+```
+
 
   
