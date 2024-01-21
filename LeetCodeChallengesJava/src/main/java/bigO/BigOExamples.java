@@ -16,6 +16,8 @@ public class BigOExamples
         System.out.println(Arrays.toString( ints ));
         insertionSort( arr );
         System.out.println(Arrays.toString( arr ));
+
+        printStrings(3);
     }
 
     //Example O(n)
@@ -111,4 +113,23 @@ public class BigOExamples
         }
         return result;
     }
+
+
+    // Print ALL Strings of length k with the letter a,b and c.
+    public static void printStrings(int k) {
+         printStrings(k, "");
+    }
+
+    private static void printStrings(int remaining, String prefix) {
+        if (remaining == 0) {
+            System.out.println(prefix);
+        } else {
+            for (int i = 0; i < 3;i++) {
+                char c = (char) (((int) 'a') + i );
+                printStrings(remaining-1, prefix+c);
+            }
+        }
+    }
+
+
 }
