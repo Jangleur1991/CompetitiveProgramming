@@ -72,16 +72,16 @@ public class LeetCode17
     }
 
 
-    private static void backtrack(String combination, String nextDigit, List<String> result, Map<String,
+    private static void backtrack(String combination, String digits, List<String> result, Map<String,
         List<String>> map)
     {
-        if (nextDigit.isEmpty())
+        if (digits.isEmpty())
         {
             result.add( combination );
         } else {
-            List<String> letters = map.get( nextDigit.substring( 0, 1 ) );
+            List<String> letters = map.get( digits.substring( 0, 1 ) );
             for ( String letter : letters ) {
-                backtrack( combination + letter, nextDigit.substring( 1 ), result, map );
+                backtrack( combination + letter, digits.substring( 1 ), result, map );
             }
         }
     }
