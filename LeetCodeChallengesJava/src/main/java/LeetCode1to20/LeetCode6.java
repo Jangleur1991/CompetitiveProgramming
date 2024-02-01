@@ -66,31 +66,31 @@ public class LeetCode6
         return result.toString();
     }
 
-    private static String convert(String s, int numRows) {
-        if (numRows == 1)
-            return s;
-
-        StringBuilder[] rows = new StringBuilder[numRows];
-        for ( int i = 0; i < numRows; i++ )
-        {
-            rows[i] = new StringBuilder();
-        }
-
-        int rowIndex = 0; // start at first row
-        int flowDirection = -1; // -1 == down, 1 == up
-
-        for ( char letter : s.toCharArray() ) {
-            rows[rowIndex].append( letter );
-            // if first or last row change direction
-            if (rowIndex == 0 || rowIndex == numRows-1) {
-                flowDirection = -flowDirection;
-            }
-            rowIndex += flowDirection;
-        }
-
-        StringBuilder result = new StringBuilder();
-        for ( StringBuilder row : rows )
-            result.append( row.toString() );
-        return result.toString();
-    }
+//    private static String convert(String s, int numRows) {
+//        if (numRows == 1)
+//            return s;
+//
+//        StringBuilder[] rows = new StringBuilder[numRows];
+//        for ( int i = 0; i < numRows; i++ )
+//        {
+//            rows[i] = new StringBuilder();
+//        }
+//
+//        int rowIndex = 0; // start at first row
+//        int flowDirection = -1; // -1 == down, 1 == up
+//
+//        for ( char letter : s.toCharArray() ) {
+//            rows[rowIndex].append( letter );
+//            // if first or last row change direction
+//            if (rowIndex == 0 || rowIndex == numRows-1) {
+//                flowDirection = -flowDirection;
+//            }
+//            rowIndex += flowDirection;
+//        }
+//
+//        StringBuilder result = new StringBuilder();
+//        for ( StringBuilder row : rows )
+//            result.append( row.toString() );
+//        return result.toString();
+//    }
 }
