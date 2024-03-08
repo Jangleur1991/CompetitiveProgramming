@@ -21,19 +21,32 @@ public class Leetcode3 {
         System.out.println(lengthOfLongestSubstring(s6)); //1
     }
 
+//    private static int lengthOfLongestSubstring(String s) {
+//        int result = 0, currentLength = 0, indexOfLastRepeat = 0;
+//        Map<Character, Integer> map = new HashMap<>();
+//        for (int i = 0; i < s.length(); i++) {
+//            char c = s.charAt(i);
+//            if (map.containsKey(c) && map.get(c) >= indexOfLastRepeat) {
+//                indexOfLastRepeat = map.get(c);
+//                currentLength = i - indexOfLastRepeat - 1;
+//                map.put(c, i);
+//            }
+//            map.put(c, i);
+//            currentLength++;
+//            result = Math.max(result, currentLength);
+//        }
+//        return result;
+//    }
+
     private static int lengthOfLongestSubstring(String s) {
-        int result = 0, currentLength = 0, indexOfLastRepeat = 0;
         Map<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (map.containsKey(c) && map.get(c) >= indexOfLastRepeat) {
-                indexOfLastRepeat = map.get(c);
-                currentLength = i-indexOfLastRepeat-1;
-                map.put(c, i);
+        int result = 0, windowStart = 0;
+        for (int windowEnd = 0; windowEnd < s.length(); windowEnd++) {
+            if (map.containsKey(s.charAt(windowEnd))) {
+                windowStart = Math.max(windowStart, map.get(s.charAt(windowEnd))+1);
             }
-            map.put(c, i);
-            currentLength++;
-            result = Math.max(result, currentLength);
+            map.put(s.charAt(windowEnd), windowEnd);
+            result = Math.max(result, windowEnd-windowStart+1);
         }
         return result;
     }
