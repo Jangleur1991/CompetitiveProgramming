@@ -407,5 +407,9 @@ for next_candidate in list_of_candidates:
 6. After a few topics: Go back to the beginning and solve more problems!
 7. Make a habit of write down all problems I was bad. Schedule 
    two weeks later and give it another go.
+8. (Spaeter) uebe auf Zeit:
+   - Easy: 30 Minutes
+   - Medium: ?
+   - Hard: ?
 
   
