@@ -405,5 +405,7 @@ for next_candidate in list_of_candidates:
 4. Read the solution and try to analyze why you was so bad.
 5. Move on to the next topic.
 6. After a few topics: Go back to the beginning and solve more problems!
+7. Make a habit of write down all problems I was bad. Schedule 
+   two weeks later and give it another go.
 
   
